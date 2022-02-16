@@ -4,8 +4,6 @@ title: Grafana reverse proxy in IIS with Azure AD
 permalink: /2022/grafana-reverse-proxy-with-azure-ad.html
 ---
 
-## Precursor (ignore if you want the tutorial)
-
 It's 2022, it's been almost a year since the last (and first) post. A lot has happened, including the beginning of the end of the pandemic, and a paradigm shift of telemetry and instrumentation for the software company I work at. I have finally started the transition to introduce Grafana at work - and with that transition, came the upfront cost of expensive trials and tribulations. How do I make this SSL? How do I add Azure AD to Grafana? How do I reverse proxy Grafana with IIS?
 
 ## My environment
