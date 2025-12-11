@@ -1,0 +1,215 @@
+<!doctype html><html lang=en-US class="scroll-smooth dark"><head><meta charset=UTF-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>patrickk.io | Migrating from Microsoft Teams to Discord for work and enterprise</title><meta name=description content="Communication is a mess in almost any human setting. Trying to get everyone onto the same page is a feat not many people can manage. You end up with a scale of free for all to micromanaging, where the latter usually alienates people but, in my experience, sometimes yields the best results. Thousands, if not millions, of solutions, or at least attempted, solutions have tried to conquer the Discord (heh, get it?) between people at work, home or in any other setting."><link rel=canonical href=https://patrickk.io/posts/2022/using-discord-in-enterprise/><link rel=robots href=/robots.txt><link rel=icon type=image/x-icon href=/icons/favicon.ico><script type=text/javascript src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type=text/x-mathjax-config>MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script><link rel=stylesheet href="https://patrickk.io/css/app.min.2cb70fb9f83d081ead4c74dfa601dd3c78c84840b4c1a660eb0c1c72dd66c3ba.css" integrity="sha256-LLcPufg9CB6tTHTfpgHdPHjISEC0waZg6wwcct1mw7o="></head><body class="max-w-screen-md mx-auto px-2.5"><div class=header><header class="flex flex-col sm:flex-row items-center gap-5 sm:gap-10 pt-16 py-12"><div class="flex-none w-20 h-20 rounded-full overflow-hidden"><a href=https://patrickk.io/><img srcset="/img/logo_hu_be36e67451a71f56.png 80w" src=/img/logo.png width=1080 height=1080 alt=patrickk.io></a></div><div class="flex flex-col gap-5"><a href=https://patrickk.io/><h1 id=site-title>patrickk.io</h1></a><nav><ul class="flex justify-start"><li><a href=/>Home</a></li><li><a href=/about>About me</a></li></ul></nav></div></header><button class=toggle-theme aria-label="Toggle Theme" title="Toggle Theme" onclick=toggleTheme()>
+<span class="theme-icon light"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75.0 11-7.5.0 3.75 3.75.0 017.5.0z"/></svg> </span><span class="theme-icon dark"><svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718.0 0118 15.75c-5.385.0-9.75-4.365-9.75-9.75.0-1.33.266-2.597.748-3.752A9.753 9.753.0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753.0 009.002-5.998z"/></svg> </span></button>
+<script>document.addEventListener("DOMContentLoaded",function(){const e=localStorage.getItem("theme");setTheme(!e||e==="light"?"light":e)});function setTheme(e){const t=document.querySelector("html");localStorage.setItem("theme",e),e==="light"?(t.classList.contains("dark")&&document.querySelector("html").classList.remove("dark"),document.querySelector(".theme-icon.light").style.display="none",document.querySelector(".theme-icon.dark").style.display="block"):(t.classList.contains("dark")||document.querySelector("html").classList.add("dark"),document.querySelector(".theme-icon.dark").style.display="none",document.querySelector(".theme-icon.light").style.display="block")}function toggleTheme(){const e=localStorage.getItem("theme");setTheme(e==="light"?"dark":"light")}</script></div><main id=content><article class="flex flex-col gap-10"><header class="flex flex-col gap-0"><h1>Migrating from Microsoft Teams to Discord for work and enterprise</h1><div class=meta><time datetime="2022-09-30 00:00:00 +0000 UTC" title='Fri, Sep 30, 2022, 12:00 AM UTC'>30/09/2022</time></div></header><section><p>Communication is a mess in almost any human setting. Trying to get everyone onto the same page is a feat not many people can manage. You end up with a scale of free for all to micromanaging, where the latter usually alienates people but, in my experience, sometimes yields the best results. Thousands, if not millions, of solutions, or at least attempted, solutions have tried to conquer the Discord (heh, get it?) between people at work, home or in any other setting.</p><p>Today the options usually distil down to Slack, Microsoft Teams, Rocket Chat, or another Slack-like competitor. These apps have become &ldquo;necessary evils&rdquo; even though they all individually provide massive bottlenecks and drawbacks. This was particularly evident during the pandemic and lockdowns where these applications thrived and work moved to text-based back and forth conversations, sometimes arguments. We experienced this ourselves, moving first from Slack to Teams, then eventually to Discord – a platform that is not the first choice for any &ldquo;professional&rdquo; team, and a no-go for any company that requires strict compliance with auditing checks and the likes. Though, our choice of Discord has faired extremely well, in a world where remote colleagues now are able to sit in voice channels and people can drop in and out when they wish. Gone are the days of scheduled meetings and tight requirements for a channel to exist. Discord&rsquo;s loose approach to collaboration and communication makes for an inviting difference in an otherwise samey corporate stiffness.</p><p>Mobilising an entire company to use any new piece of software is a new learning experience every time. Discord was no different. When you first move, you&rsquo;ll be in the deep end. Integrations for anything &ldquo;real&rdquo; like Jira, GitHub and the like are slim. Webhooks are natively supported, and you can have GitHub post to Discord for events, but anything granular and you&rsquo;re left to wonder what could be if Discord did position itself as a Slack competitor. In some regards I am thankful Discord isn’t positioning itself as such because its platform remains more open and freer to developers like me who choose to build an entire devops experience off Discord.</p><p>In April 2020 we started our Discord adventure and more than two years on we now have our own Discord bot that happily sits listening for events, posting to the channels where the event is relevant to and keeping every single person, on the Discord, in the know. Need a new metric? No problem. Let&rsquo;s get that into the Discord bot.</p><p>Here&rsquo;s how I achieved it.</p><p>In the .NET Core world, ASP.NET is a wonderfully equipped platform to build almost any application on top of almost any hosting provider. Back in the days of ASP.NET MVC (Framework) you&rsquo;d often ask yourself, &ldquo;can I host my ASP.NET app here&rdquo; and the answer would almost without a doubt be no, no you cannot. With the advent of .NET Core running across Windows, Mac and Linux, ASP.NET Core has become a verstaile enough platform to be able to host anything from niche Discord bots to multi-million simultaneous connections to a website or API. The foundation of the bot was therefore going to be ASP.NET Core, with the Discord bot as a <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-6.0&amp;tabs=visual-studio">hosted service</a>. While I didn&rsquo;t need a website <em>yet</em>, ASP.NET Core would provide the benefits of allowing that to happen in future, while also allowing me to just <em>turn that functionality off</em> in a crude sense.</p><p>There are a number of open source .NET libraries that help you interface with Discord&rsquo;s API. While <a href=https://github.com/discord-net/Discord.Net>Discord.NET</a> and <a href=https://github.com/DSharpPlus/DSharpPlus>DSharpPlus</a> exist, the choice for our internal bot is <a href=https://github.com/Remora/Remora.Discord>Remora.Discord</a>. The reason for this is that it is the lowest-level available library that directly tries to mimic the structure and API surface of Discord&rsquo;s own API documentation. There are no expensive or convoluted abstractions, which brings benefits to both the consumers of Remora and the developers maintaining the library.</p><p>The project structure isolates Discord bot logic from the ASP.NET Core project. This allows us to substitute in another host for the bot if the need ever arises - though, I doubt that will ever be the case.</p><pre tabindex=0><code>src/
+    Contoso.API
+    Contoso.DiscordBot
+</code></pre><p>Is a crude depiction of the project structure, where <code>Contoso.API</code> is our ASP.NET Core host and <code>Contoso.DiscordBot</code> is a .NET Core class library.</p><p>In <code>Contoso.DiscordBot</code> we will want to define our bot client, which will eventually be started by our ASP.NET Core host. We will also configure our Discord bot with an options class. Not everything defined here will be relevant for your own set up.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>public</span> <span style=color:#ff79c6>class</span> <span style=color:#50fa7b>DiscordBotOptions</span>
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>public</span> <span style=color:#8be9fd;font-style:italic>static</span> <span style=color:#8be9fd>string</span> Key =&gt; <span style=color:#f1fa8c>&#34;Discord&#34;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>public</span> <span style=color:#8be9fd>ulong</span> GuildId { <span style=color:#ff79c6>get</span>; <span style=color:#ff79c6>set</span>; }
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>public</span> <span style=color:#8be9fd>ulong</span> VoiceChannelId { <span style=color:#ff79c6>get</span>; <span style=color:#ff79c6>set</span>; }
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>public</span> <span style=color:#8be9fd>ulong</span> VoiceRoleId { <span style=color:#ff79c6>get</span>; <span style=color:#ff79c6>set</span>; }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>These options will be available bot-wide wherever required. We have configurable IDs for channels in Discord, which are referred to as Snowflakes. In the <code>appsettings.json</code>, we have the following configurations defined:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>  <span style=color:#f1fa8c>&#34;Discord&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;Token&#34;</span>: <span style=color:#f1fa8c>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;GuildId&#34;</span>: <span style=color:#f1fa8c>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;VoiceRoleId&#34;</span>: <span style=color:#f1fa8c>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>&#34;VoiceChannelId&#34;</span>: <span style=color:#f1fa8c>&#34;&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span></code></pre></div><p>It&rsquo;s important to note that these configurations have to be hydrated from the hosting app, i.e. the ASP.NET Core application. On startup of the host, we push the ASP.NET Core configuration into the Discord bot. We have a <code>IBotClient</code>, and implementation of said interface, to contain the start up and run logic of the bot.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>public</span> <span style=color:#ff79c6>interface</span> <span style=color:#50fa7b>IBotClient</span>
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    Task Run(CancellationToken cancellationToken);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>public</span> <span style=color:#ff79c6>class</span> <span style=color:#50fa7b>BotClient</span> : IBotClient
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>private</span> <span style=color:#ff79c6>readonly</span> ILogger&lt;BotClient&gt; _logger;
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>private</span> <span style=color:#ff79c6>readonly</span> IOptions&lt;DiscordBotOptions&gt; _options;
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>private</span> <span style=color:#ff79c6>readonly</span> SlashService _slashService;
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>private</span> <span style=color:#ff79c6>readonly</span> DiscordGatewayClient _discordGatewayClient;
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>public</span> BotClient(
+</span></span><span style=display:flex><span>        ILogger&lt;BotClient&gt; logger,
+</span></span><span style=display:flex><span>        IOptions&lt;DiscordBotOptions&gt; options,
+</span></span><span style=display:flex><span>        SlashService slashService, 
+</span></span><span style=display:flex><span>        DiscordGatewayClient discordGatewayClient
+</span></span><span style=display:flex><span>    )
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        _logger = logger;
+</span></span><span style=display:flex><span>        _options = options;
+</span></span><span style=display:flex><span>        _slashService = slashService;
+</span></span><span style=display:flex><span>        _discordGatewayClient = discordGatewayClient;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>public</span> <span style=color:#8be9fd;font-style:italic>async</span> Task Run(CancellationToken cancellationToken)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>await</span> RegisterSlashCommands(cancellationToken);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#8be9fd>var</span> runResult = <span style=color:#ff79c6>await</span> _discordGatewayClient.RunAsync(cancellationToken);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>if</span> (!runResult.IsSuccess)
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>switch</span> (runResult.Error)
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>case</span> ExceptionError exe:
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    _logger.LogError(exe.Exception,<span style=color:#f1fa8c>&#34;Exception during gateway connection: {ExceptionMessage}&#34;</span>, exe.Message);
+</span></span><span style=display:flex><span>                    <span style=color:#ff79c6>break</span>;
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>case</span> GatewayWebSocketError:
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>case</span> GatewayDiscordError:
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    _logger.LogError(<span style=color:#f1fa8c>&#34;Gateway error: {Message}&#34;</span>, runResult.ToString());
+</span></span><span style=display:flex><span>                    <span style=color:#ff79c6>break</span>;
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>                <span style=color:#ff79c6>default</span>:
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    _logger.LogError(<span style=color:#f1fa8c>&#34;Unknown error: {Message}&#34;</span>, runResult.ToString());
+</span></span><span style=display:flex><span>                    <span style=color:#ff79c6>break</span>;
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>private</span> <span style=color:#8be9fd;font-style:italic>async</span> Task RegisterSlashCommands(CancellationToken cancellationToken)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#8be9fd>var</span> checkSlashSupport = _slashService.SupportsSlashCommands();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>if</span> (!checkSlashSupport.IsSuccess)
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            _logger.LogWarning(<span style=color:#f1fa8c>&#34;The registered commands of the bot don&#39;t support slash commands: {Reason}&#34;</span>, checkSlashSupport.ToString());
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>else</span>
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#8be9fd>var</span> updateSlash = <span style=color:#ff79c6>await</span> _slashService.UpdateSlashCommandsAsync(<span style=color:#ff79c6>new</span> Snowflake(_options.Value.GuildId), cancellationToken);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>if</span> (!updateSlash.IsSuccess)
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>                _logger.LogWarning(<span style=color:#f1fa8c>&#34;Failed to update slash commands: {Reason}&#34;</span>, updateSlash.ToString());
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>The <code>IBotClient</code> interface is used within the background service implementation in the ASP.NET Core host app, which becomes a hosted service.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>public</span> <span style=color:#ff79c6>class</span> <span style=color:#50fa7b>BotHostedService</span> : BackgroundService
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>private</span> <span style=color:#ff79c6>readonly</span> IBotClient _botClient;
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>private</span> <span style=color:#ff79c6>readonly</span> ILogger&lt;BotHostedService&gt; _logger;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>public</span> BotHostedService(IBotClient botClient, ILogger&lt;BotHostedService&gt; logger)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        _botClient = botClient;
+</span></span><span style=display:flex><span>        _logger = logger;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>protected</span> <span style=color:#8be9fd;font-style:italic>override</span> <span style=color:#8be9fd;font-style:italic>async</span> Task ExecuteAsync(CancellationToken stoppingToken)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>try</span>
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            _logger.LogInformation(<span style=color:#f1fa8c>&#34;Starting bot...&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>await</span> _botClient.Run(stoppingToken);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            _logger.LogInformation(<span style=color:#f1fa8c>&#34;Stopped bot!&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>catch</span> (Exception e)
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            _logger.LogCritical(e, <span style=color:#f1fa8c>&#34;Failed starting Discord bot&#34;</span>);
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>throw</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>On startup, two methods are invoked in the ASP.NET Core app:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs><span style=display:flex><span>services
+</span></span><span style=display:flex><span>    .AddBotClient(builder.Configuration)
+</span></span><span style=display:flex><span>    .AddHostedService&lt;BotHostedService&gt;()
+</span></span></code></pre></div><p>The former is an extension method defined in the Discord bot class library which isolates the logic, allowing for the configuration of the bot client to happen anywhere a Microsoft Extensions Dependency Injection container is available.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>public</span> <span style=color:#8be9fd;font-style:italic>static</span> <span style=color:#ff79c6>class</span> <span style=color:#50fa7b>ServiceCollectionExtensions</span>
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>public</span> <span style=color:#8be9fd;font-style:italic>static</span> IServiceCollection AddBotClient(<span style=color:#ff79c6>this</span> IServiceCollection collection, IConfiguration configuration)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#8be9fd>var</span> token = configuration[<span style=color:#f1fa8c>&#34;Discord:Token&#34;</span>];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>return</span> collection
+</span></span><span style=display:flex><span>            .AddDiscordGateway(_ =&gt; token)
+</span></span><span style=display:flex><span>            .AddDiscordCommands(<span style=color:#ff79c6>true</span>)
+</span></span><span style=display:flex><span>            .Configure&lt;DiscordBotOptions&gt;(configuration.GetSection(DiscordBotOptions.Key))
+</span></span><span style=display:flex><span>            .Configure&lt;DiscordGatewayClientOptions&gt;(o =&gt;
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>                o.Intents |= GatewayIntents.DirectMessageReactions;
+</span></span><span style=display:flex><span>                o.Intents |= GatewayIntents.GuildMessageReactions;
+</span></span><span style=display:flex><span>                o.Intents |= GatewayIntents.GuildPresences;
+</span></span><span style=display:flex><span>                o.Intents |= GatewayIntents.GuildVoiceStates;
+</span></span><span style=display:flex><span>            })
+</span></span><span style=display:flex><span>            .AddCommandGroup&lt;GitHubCommandGroup&gt;()
+</span></span><span style=display:flex><span>            .AddResponder&lt;GitHubLinkResponder&gt;()
+</span></span><span style=display:flex><span>            .AddScoped&lt;CommandResponder&gt;()
+</span></span><span style=display:flex><span>            .AddTransient&lt;IBotClient, BotClient&gt;();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>This is where most of the configuration magic happens, we grab the Discord token and set up intents and Remora concepts, such as Responders and Command Groups. Responders are types that, well, respond to events in the Discord guild(s) the bot is in, for example, a message is received. Command groups are types that declare available commands in Discord, typically available via a slash (or <code>/</code>) syntax.</p><p>One of the annoyances of any chat platform includes discussing a particular issue or pull request. I added a responder that listens for any received message and that messages&rsquo; contents includes a GitHub issue/pull request reference. I decided to denote the syntax as <code>#</code> followed by just numbers. This way if someone referenced <code>123</code>, we wouldn&rsquo;t trigger the bot, but if someone referenced <code>#123</code>, the bot would trigger and look for an issue or pull request with ID 123. Regex to the rescue!</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>public</span> <span style=color:#ff79c6>class</span> <span style=color:#50fa7b>GitHubLinkResponder</span> : IResponder&lt;IMessageCreate&gt;
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>private</span> <span style=color:#ff79c6>readonly</span> ILogger&lt;GitHubLinkResponder&gt; _logger;
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>private</span> <span style=color:#ff79c6>readonly</span> IDiscordRestChannelAPI _channelApi;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>public</span> GitHubLinkResponder(ILogger&lt;GitHubLinkResponder&gt; logger, 
+</span></span><span style=display:flex><span>        IDiscordRestChannelAPI channelApi)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        _logger = logger;
+</span></span><span style=display:flex><span>        _channelApi = channelApi;
+</span></span><span style=display:flex><span>        _gitHubApiService = gitHubApiService;
+</span></span><span style=display:flex><span>        _repositorySubscriptionService = repositorySubscriptionService;
+</span></span><span style=display:flex><span>        _userService = userService;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#8be9fd;font-style:italic>public</span> <span style=color:#8be9fd;font-style:italic>async</span> Task&lt;Result&gt; RespondAsync(IMessageCreate gatewayEvent, CancellationToken ct = <span style=color:#ff79c6>new</span>())
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#8be9fd>var</span> processEmbeds = <span style=color:#ff79c6>false</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>if</span> (GitHubLinkHelper.ContainsGitHubIssueLink(gatewayEvent.Content))
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>await</span> HandleIssueLink(gatewayEvent, ct);
+</span></span><span style=display:flex><span>            processEmbeds = <span style=color:#ff79c6>true</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>if</span> (GitHubLinkHelper.ContainsGitHubPullRequestLink(gatewayEvent.Content))
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>await</span> HandlePullRequestLink(gatewayEvent, ct);
+</span></span><span style=display:flex><span>            processEmbeds = <span style=color:#ff79c6>true</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>if</span> (processEmbeds 
+</span></span><span style=display:flex><span>            &amp;&amp; !gatewayEvent.Embeds.Any())
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>await</span> _channelApi.EditMessageAsync(gatewayEvent.ChannelID,
+</span></span><span style=display:flex><span>                gatewayEvent.ID,
+</span></span><span style=display:flex><span>                flags: MessageFlags.SuppressEmbeds,
+</span></span><span style=display:flex><span>                ct: ct);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>return</span> Result.FromSuccess();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>This is largely a stripped down implementation - however by implementing <code>IResponder&lt;IMessageCreate></code> on our class, we will receive any message sent to a channel in Discord where our bot is present. Every message is run through our <code>GitHubLinkHelper</code>, which scans the contents of the message against our Regex for GitHub ID syntax. If matched, we process the message and post it to Discord with context fetched from the GitHub API.</p><p>So why do I host the bot in an ASP.NET Core container? It allows me to post anything to a defined endpoint and have it relayed to Discord. The two concepts completely isolated, where I could route any API request to another bot or application. Since the Discord bot is configured within ASP.NET Core, I have access to the very same bot client that is running and connected to Discord. It is simply a case of getting the instance of the bot client and posting to the relevant channel.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs><span style=display:flex><span><span style=color:#50fa7b>[HttpPost(&#34;ondeployment&#34;)]</span>
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>public</span> <span style=color:#8be9fd;font-style:italic>async</span> Task&lt;IActionResult&gt; OnDeployment(AzureDevopsDeploymentModel model)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    _logger.LogInformation(<span style=color:#f1fa8c>&#34;Received {MethodName}&#34;</span>, nameof(OnDeployment));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>try</span>
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#8be9fd>var</span> dto = model.CreateDto();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#8be9fd>var</span> channelIds =
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>await</span> _repositorySubscriptionService.GetDiscordChannelIdsForRepositoryName(dto.ProjectName);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#ff79c6>foreach</span> (<span style=color:#8be9fd>var</span> channelId <span style=color:#ff79c6>in</span> channelIds)
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#ff79c6>await</span> _discordPostService.PostAzurePipelinesDeployment(channelId, dto);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>catch</span> (Exception e)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        _logger.LogCritical(e, <span style=color:#f1fa8c>&#34;Failed {MethodName}&#34;</span>, nameof(OnDeployment));
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#ff79c6>return</span> Ok();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>The implementation of such a tool for internal use is very specific to our use cases. I fixed annoyances and made quality of life improvements to what everyone likes to refer to as chat ops. Today we have a Discord bot that integrates with our GitHub, Sentry, Azure Devops and SEQ.</p></section><footer></footer></article></main><footer class="pt-5 pb-10 grid gap-3 sm:grid-cols-2"><div class="text-xs font-semibold text-gray-500 order-2 sm:order-1">© 2025 -
+<a href=https://patrickk.io/>patrickk.io</a></div><div class="order-1 sm:order-2"><ul class="flex sm:justify-end gap-5"><li><a href=https://github.com/patrickklaeren target=_blank rel="me noopener noreferrer">GitHub</a></li></ul></div></footer></body></html>

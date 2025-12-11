@@ -1,0 +1,23 @@
+User-agent: *
+
+Disallow: /
+
+Disallow: /posts/
+
+Disallow: /posts/2023/time-for-reflection/
+
+Disallow: /posts/2022/using-discord-in-enterprise/
+
+Disallow: /posts/2022/dotnet-is-not-lts/
+
+Disallow: /posts/2022/document-your-work-often/
+
+Disallow: /posts/2022/grafana-reverse-proxy-with-azuread/
+
+Disallow: /posts/2021/consistency-is-key/
+
+Disallow: /about/
+
+Disallow: /categories/
+
+Disallow: /tags/
