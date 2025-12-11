@@ -1,0 +1,17 @@
++++
+date = '2021-05-01'
+draft = false
+title = 'Consistency is key, even when it makers you the party pooper'
++++
+
+Three attempts over the past ten years in my career as a software engineer have all led to the same conclusion: I suck at writing blog posts. Or, at the very least, I suck at consistency when it comes to blog posts. Sitting down, spamming words into a wall of text isn't the most natural thing to come to me, which is ironic given my previous inclination of wanting to pursue journalism before I left school for university.
+
+If I've learnt anything over the past six years of commercial .NET software experience working in a team of 18 other individuals, all of which have their own needs and desires, it's that consistency is key to succeed. In a company that is filled with personalities, one personality has to succeed in order to deliver software in a cohesive, precise manner. Even if that means being the party pooper - the one to deliver bad news. The one to poop on the code you've written because it doesn't conform to company standards. It's a skill you need to master if you want to be able to standardize and create a unit of developers who are able to contribute to a code base they might not necessarily be a part of in one or ten years time. A skill which doesn't necessarily make you friends, or, at least very popular. Every programmer wants to be right. Every programmer thinks they write the best code. Every programmer wants to be infallible. Calling a programmer up on style or convention is likely the last thing on their mind as they try to materialize a concept thought up in the sprint planning meeting last week.
+
+A large aspect of my job consists of standardizing principles in the company I work in. I manage almost every single developer. I manage almost every single project in the company. Some at higher levels, some at lower levels. I create standardized build pipelines, I create standardized code snippets: this is the way we log; this is the way we pub/sub; this is the way we do app updates. It's a long and tiring process that isn't necessarily realised by programmers who write the code that eventually ends up at step one of the review process: the pull request. It all starts with the pull request. An initial skim reveals if the programmer understands company conventions - understands if they can meet the abstract outline that every other solution in the company meets. I ask one question in my head: can another programmer from another project navigate their way around this project, without understanding the domain? Yes? Great. The programmer has done their done well. No? I talk to the programmer and I look at why consistency has dropped in this part of work.
+
+{{< img
+  src="consistency-is-key.jpg"
+  alt="Pull request consistency" >}}
+
+Consistency is a large key to success in delivering good, maintainable software. My company strives for a .NET stack at every layer. From the database engine that is Microsoft SQL Server to the front end serving ASP.NET. Every developer tool enables us to dictate consistency, and every form of communication goes back to the values of the company. I want every developer in the company to understand every project, regardless of domain knowledge. Every concept should be translatable and recognisable. If developer one speaks to developer two about a problem in the logger, the issue should be unanimous and easy to fix.

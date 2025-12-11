@@ -1,0 +1,32 @@
+
+{{ define "main" }} 
+
+<section class="pb-10 flex flex-col gap-10">
+  {{ range (where .Site.RegularPages "Type" "posts") }}
+    <article class="flex flex-col gap-1">
+      <h1>
+        <a href="{{ .RelPermalink }}" class="no-underline hover:underline">{{ .Title }}</a>
+      </h1>
+      <span class="date">
+        <time datetime="{{ .Date.Format "2006-01-02 15:04:05 -0700 MST" }}" title="{{ .Date.Format "Mon, Jan 2, 2006, 3:04 PM MST" }}">
+          {{ .Date.Format "02/01/2006" }}
+        </time>
+      </span>
+      <div class="description">
+        {{ .Summary }}
+      </div>
+      <div class="mt-2">
+        <a class="read-more no-underline hover:underline" href="{{ .RelPermalink }}">
+          Continue reading
+          <span class="w-4 h-4 stroke-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentcolor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </article>
+  {{ end }}
+</section>
+
+{{ end }}
